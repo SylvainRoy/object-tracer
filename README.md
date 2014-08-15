@@ -10,12 +10,12 @@ What is this?
 Did you ever want to trace the activity on a given object in the process of an obscure function call?
 Well, I did.
 
-Python allows quite a few neat tricks on object and class. So, it is easy to instrument an object to trace all it's activity.
+Python allows quite a few neat tricks on objects and classes. So, it is easy to instrument an object to trace all it's activity.
 
 That being said, it took me some time to get it 'right'.
 So, I took the extra step to make it a standalone module.
 
-It allows one to track the activity (i.e. method calls, attribute get/set/del) of one or several object for a limited period of time.
+It allows one to track the activity (i.e. method calls, attribute get/set/del) of one or several objects for a limited period of time.
 
 Exactly what you need if you want to trace what an obscure function of an even more obscure module does to this object that you pass in parameter.
 
@@ -28,15 +28,15 @@ ObjectTracer is not intrusive. You only have to instrument the object you want t
 
 Let say you want to trace all the activity of the object 'myobject' in the call to 'mysecretfunction', this can be as simple as:
 
-	import objectTracer
+        import objectTracer
 
-	objectTracer.instrument(a, 'a')
-	# All activity on 'a' will be printed on stdout from this point
+        objectTracer.instrument(a, 'a')
+        # All activity on 'a' will be printed on stdout from this point
 
-	mysecretfunction(a)
+        mysecretfunction(a)
 
-	objectTracer.clean(a)
-	# No more tracking of 'a'
+        objectTracer.clean(a)
+        # No more tracking of 'a'
 
 
 The other objects of the class are not impacted by the instrumentation.
@@ -57,11 +57,30 @@ Let say that:
 
 Here is what you will get on stdout (or any other stream given to 'instrument'):
 
-	> a.mymethod(5)         # Entering method 'mymethod' of a with parameter 5
-	  a.myattribute > 12    # a.myattribute accessed, value returned is 12
-	  a.myattribute < 17    # a.myattribute set to 17
-	< None                  # Leaving function 'mymethod' with return value equal to None
+        > a.mymethod(5)         # Entering method 'mymethod' of a with parameter 5
+          a.myattribute > 12    # a.myattribute accessed, value returned is 12
+          a.myattribute < 17    # a.myattribute set to 17
+        < None                  # Leaving function 'mymethod' with return value equal to None
 
+Here is an example of something slightly more complex:
+
+        > a.add(1)
+          a.a > 5
+          a.a < 6
+          a.a > 6
+        < 6
+        > a.addn(2, 2)
+          > a.add(2)
+            a.a > 6
+            a.a < 8
+            a.a > 8
+          < 8
+          > a.add(2)
+            a.a > 8
+            a.a < 10
+            a.a > 10
+          < 10
+        < None
 
 
 Any limitation?
@@ -70,7 +89,7 @@ Any limitation?
 This has been tested with python 2.7 only.
 Does not work with python 3 but it should be very easy to fix (I just do not have any python 3 install at hand).
 
-Also, this only work for ''new style'' object (you know the ones that inherit from 'object').
+Also, this only works for ''new style'' object (you know the ones that inherit from 'object').
 
 
 
@@ -79,4 +98,4 @@ Unit tests?
 
 Yeap. Just run the following command:
 
-	python objectTracer-test.py
+        python objectTracer-test.py
