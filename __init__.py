@@ -4,4 +4,4 @@
 objectTracer module
 """
 
-__all__ = ['objectTracer']
+from objectTracer import instrument, clean
