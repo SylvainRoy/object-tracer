@@ -16,11 +16,11 @@ def instrument_method(method_name, method, name, stream):
                 parameters += ", ".join(map(lambda i: '{}={}'.format(str(i[0]), repr(i[1])),
                                                                         kwargs.items()))
                 indent = '  '*self._objectTracerAttributes['depth']
-                print >>stream, '{}> {}.{}({})'.format(indent, name, method_name, parameters)
+                print('{}> {}.{}({})'.format(indent, name, method_name, parameters), file=stream)
                 self._objectTracerAttributes['depth'] += 1
                 res = method(self, *args, **kwargs)
                 self._objectTracerAttributes['depth'] -= 1
-                print >>stream, '{}< {}'.format(indent, repr(res))
+                print('{}< {}'.format(indent, repr(res)), file=stream)
                 return res
         imethod.func_name = method_name
         return imethod
@@ -32,18 +32,18 @@ def build_xxxattr_methods(name, stream):
                 if type(val) == types.MethodType or att == '_objectTracerAttributes':
                         return val
                 indent = '  '*object.__getattribute__(self, '_objectTracerAttributes')['depth']
-                print >>stream, "{}{}.{} > {}".format(indent, name, att, repr(val))
+                print("{}{}.{} > {}".format(indent, name, att, repr(val)), file=stream)
                 return val
         def __setattr__(self, att, val):
                 ret = object.__setattr__(self, att, val)
                 if att == '__class__':
                         return
                 indent = '  '*object.__getattribute__(self, '_objectTracerAttributes')['depth']
-                print >>stream, "{}{}.{} < {}".format(indent, name, att, repr(val))
+                print("{}{}.{} < {}".format(indent, name, att, repr(val)), file=stream)
         def __delattr__(self, att):
                 val = object.__delattr__(self, att)
                 indent = '  '*object.__getattribute__(self, '_objectTracerAttributes')['depth']
-                print >>stream, "{}del({}.{})".format(indent, name, att)
+                print("{}del({}.{})".format(indent, name, att), file=stream)
         return {'__getattribute__': __getattribute__, '__setattr__': __setattr__, '__delattr__': __delattr__}
 
 
