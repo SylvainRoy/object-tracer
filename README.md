@@ -95,4 +95,4 @@ Unit tests?
 
 Yeap. Just run the following command:
 
-	python objecttracer-test.py
+	python objecttracer_test.py
