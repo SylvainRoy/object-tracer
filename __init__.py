@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-objectTracer module
+objecttracer module
 """
 
-from objectTracer import instrument, clean
+from objecttracer import instrument, clean

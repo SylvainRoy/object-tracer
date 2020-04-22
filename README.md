@@ -24,19 +24,19 @@ Exactly what you need if you want to trace what an obscure function of an even m
 How does it work?
 =================
 
-ObjectTracer is not intrusive. You only have to instrument the object you want to trace.
+Objecttracer is not intrusive. You only have to instrument the object you want to trace.
 
 Let say you want to trace all the activity of the object 'myobject' in the call to 'mysecretfunction', this can be as simple as:
 
-        import objectTracer
+	import objecttracer
 
-        objectTracer.instrument(a, 'a')
-        # All activity on 'a' will be printed on stdout from this point
+	objecttracer.instrument(a, 'a')
+	# All activity on 'a' will be printed on stdout from this point
 
-        mysecretfunction(a)
+	mysecretfunction(a)
 
-        objectTracer.clean(a)
-        # No more tracking of 'a'
+	objecttracer.clean(a)
+	# No more tracking of 'a'
 
 
 The other objects of the class are not impacted by the instrumentation.
@@ -57,30 +57,30 @@ Let say that:
 
 Here is what you will get on stdout (or any other stream given to 'instrument'):
 
-        > a.mymethod(5)         # Entering method 'mymethod' of a with parameter 5
-          a.myattribute > 12    # a.myattribute accessed, value returned is 12
-          a.myattribute < 17    # a.myattribute set to 17
-        < None                  # Leaving function 'mymethod' with return value equal to None
+	> a.mymethod(5)         # Entering method 'mymethod' of a with parameter 5
+	  a.myattribute > 12    # a.myattribute accessed, value returned is 12
+	  a.myattribute < 17    # a.myattribute set to 17
+	< None                  # Leaving function 'mymethod' with return value equal to None
 
 Here is an example of something slightly more complex:
 
-        > a.add(1)
-          a.a > 5
-          a.a < 6
-          a.a > 6
-        < 6
-        > a.addn(2, 2)
-          > a.add(2)
-            a.a > 6
-            a.a < 8
-            a.a > 8
-          < 8
-          > a.add(2)
-            a.a > 8
-            a.a < 10
-            a.a > 10
-          < 10
-        < None
+	> a.add(1)
+	  a.a > 5
+	  a.a < 6
+	  a.a > 6
+	< 6
+	> a.addn(2, 2)
+	  > a.add(2)
+	    a.a > 6
+	    a.a < 8
+	    a.a > 8
+	  < 8
+	  > a.add(2)
+	    a.a > 8
+	    a.a < 10
+	    a.a > 10
+	  < 10
+	< None
 
 
 Any limitation?
@@ -98,4 +98,4 @@ Unit tests?
 
 Yeap. Just run the following command:
 
-        python objectTracer-test.py
+	python objecttracer-test.py

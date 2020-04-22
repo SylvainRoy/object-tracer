@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import unittest
-import objectTracer
+import objecttracer
 from io import StringIO
 
 
@@ -30,11 +30,11 @@ class TestNewTypeObject(unittest.TestCase):
 
         def test_access_to_variables(self):
                 a = A(5)
-                objectTracer.instrument(a, name='a', stream=self.out)
+                objecttracer.instrument(a, name='a', stream=self.out)
                 a.a = 2
                 a.a
                 del(a.a)
-                objectTracer.clean(a)
+                objecttracer.clean(a)
                 self.assertEqual(self.out.getvalue(),
                                                  "a.a < 2\n"
                                                  "a.a > 2\n"
@@ -42,9 +42,9 @@ class TestNewTypeObject(unittest.TestCase):
 
         def test_basic_method_call(self):
                 a = A(5)
-                objectTracer.instrument(a, name='a', stream=self.out)
+                objecttracer.instrument(a, name='a', stream=self.out)
                 a.add(2)
-                objectTracer.clean(a)
+                objecttracer.clean(a)
                 self.assertEqual(self.out.getvalue(),
                                                  '> a.add(2)\n'
                                                  '  a.a > 5\n'
@@ -54,9 +54,9 @@ class TestNewTypeObject(unittest.TestCase):
 
         def test_method_call(self):
                 a = A(5)
-                objectTracer.instrument(a, name='a', stream=self.out)
+                objecttracer.instrument(a, name='a', stream=self.out)
                 secret_method(a)
-                objectTracer.clean(a)
+                objecttracer.clean(a)
                 self.assertEqual(self.out.getvalue(),
                                                  '> a.add(1)\n'
                                                  '  a.a > 5\n'
@@ -81,12 +81,12 @@ class TestNewTypeObject(unittest.TestCase):
         def test_several_objects(self):
                 a = A(5)
                 b = A(2)
-                objectTracer.instrument(a, name='a', stream=self.out)
-                objectTracer.instrument(b, name='b', stream=self.out)
+                objecttracer.instrument(a, name='a', stream=self.out)
+                objecttracer.instrument(b, name='b', stream=self.out)
                 a.add(2)
                 b.add(3)
-                objectTracer.clean(a)
-                objectTracer.clean(b)
+                objecttracer.clean(a)
+                objecttracer.clean(b)
                 self.assertEqual(self.out.getvalue(),
                                                  '> a.add(2)\n'
                                                  '  a.a > 5\n'
