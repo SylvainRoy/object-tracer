@@ -86,11 +86,8 @@ Here is an example of something slightly more complex:
 Any limitation?
 ===============
 
-This has been tested with python 2.7 only.
-Does not work with python 3 but it should be very easy to fix (I just do not have any python 3 install at hand).
-
-Also, this only works for ''new style'' object (you know the ones that inherit from 'object').
-
+Tested with python 3.7 and above.
+Should work with the all python 3 releases.
 
 
 Unit tests?
