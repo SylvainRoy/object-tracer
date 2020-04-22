@@ -20,6 +20,13 @@ It allows one to track the activity (i.e. method calls, attribute get/set/del) o
 Exactly what you need if you want to trace what an obscure function of an even more obscure module does to this object that you pass in parameter.
 
 
+Installation
+============
+
+The package is on pypi:
+
+	pip install objecttracer
+
 
 How does it work?
 =================
@@ -45,6 +52,7 @@ The behaviour of 'a' does not change at all when instrumented.
 Once you have cleaned the object, it's like nothing ever happened.
 
 You should look at the unit tests to see more example of usage.
+
 
 What do I get?
 ==============
